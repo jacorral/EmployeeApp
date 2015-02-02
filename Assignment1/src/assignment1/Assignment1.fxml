@@ -42,10 +42,10 @@
             <TextField fx:id="idTextField" editable="false" layoutX="457.0" layoutY="28.0" prefHeight="26.0" prefWidth="114.0" />
          </children>
       </HBox>
-      <TreeView fx:id="employeeTreeView" layoutX="44.0" layoutY="315.0" prefHeight="291.0" prefWidth="503.0" />
-      <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onContextMenuRequested="#updateButtonAction" text="Update" />
-      <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#clearButtonAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
-      <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
-      <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#deleteButtonAction" text="Delete" />
+      <TreeView fx:id="employeeTreeView" layoutX="44.0" layoutY="315.0" prefHeight="291.0" prefWidth="503.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="39.0" />
+      <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Update" />
+      <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onAction="#clearButtonAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
+      <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
+      <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
    </children>
 </AnchorPane>

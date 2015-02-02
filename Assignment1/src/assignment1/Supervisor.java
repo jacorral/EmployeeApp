@@ -40,8 +40,8 @@ public class Supervisor extends Employee {
 
     public Supervisor(String first, String last, String department, String numberofemployees, Secretary secretary) {
         super(first,last);
-        this.department.set(department);
-        this.numberofemployees.set(numberofemployees); 
+        this.setDepartment(department);
+        this.setNumberOfEmployees(numberofemployees);
         this.secretary = secretary;
         this.setTitle("Supervisor");
     }
@@ -112,6 +112,21 @@ public class Supervisor extends Employee {
 
     @Override
     public String toString() {
+        return "Employee{" +
+                "firstName='" + firstname.get() + '\'' +
+                ", lastName='" + lastname.get() + '\'' +
+                ", phoneNumber='" + phone.get() + '\'' +
+                ", address='" + address.get() + '\'' +
+                ", ID='" + id + '\'' +
+                ", title='" + title.get() + '\'' +
+                ", salary='" + salary.get() + '\'' +
+                ", department='" + department.get() + '\'' +
+                ", secretary='" + secretary.getFirstname() + " " + secretary.getLast() + '\'' +
+                '}'; 
+        
+        
+        
+        /*
         return "Supervisor{" +
                 "firstName='" + this.getFirstname() + '\'' +
                 ", lastName='" + this.getLast() + '\'' +
@@ -123,7 +138,7 @@ public class Supervisor extends Employee {
                 ", department='" + department + '\'' +
                 ", numberOfEmployees='" + numberofemployees + '\'' +
                 ", secretary='" + this.secretary.getFirstname() + " " + this.secretary.getLast() + '\''+
-                "} ";// + super.toString();
+                "} ";// + super.toString(); */
     }
 
 

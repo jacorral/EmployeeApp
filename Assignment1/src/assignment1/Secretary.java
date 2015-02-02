@@ -111,16 +111,14 @@ public class Secretary extends Employee {
     @Override
     public String toString() {
         return "Secretary{" +
-                "firstName='" + this.getFirstname() + '\'' +
-                ", lastName='" + this.getLast() + '\'' +
-                ", phoneNumber='" + this.getPhone() + '\'' +
-                ", address='" + this.getAddress() + '\'' +
-                ", ID='" + this.getId() + '\'' +
-                ", title='" + this.getTitle() + '\'' +
-                ", salary='" + this.getSalary() + '\'' +
-                ", office='" + office + '\'' +
-                ", status='" + status + '\'' +
-                "} ";// + super.toString();
+                 "firstName='" + firstname.get() + '\'' +
+                ", lastName='" + lastname.get() + '\'' +
+                ", phoneNumber='" + phone.get() + '\'' +
+                ", address='" + address.get() + '\'' +
+                ", ID='" + id + '\'' +
+                ", title='" + title.get() + '\'' +
+                ", salary='" + salary.get() + '\'' +
+                '}';// + super.toString();
     }
 
 

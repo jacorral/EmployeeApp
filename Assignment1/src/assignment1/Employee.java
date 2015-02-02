@@ -19,19 +19,19 @@ import java.io.Serializable;
 @SuppressWarnings("EqualsAndHashcode")
 public class Employee implements Serializable {
     
-    private final StringProperty firstname = 
+    public final StringProperty firstname = 
             new SimpleStringProperty(this, "firstname", "");
-    private final StringProperty lastname =
+    public final StringProperty lastname =
             new SimpleStringProperty(this, "lastname", "");
-    private final StringProperty phone =
+    public final StringProperty phone =
             new SimpleStringProperty(this, "phone", "");
-    private final StringProperty title =
+    public final StringProperty title =
             new SimpleStringProperty(this, "title", "");
-    private final StringProperty salary =
+    public final StringProperty salary =
             new SimpleStringProperty(this, "salary");
-    private final StringProperty address =
+    public final StringProperty address =
             new SimpleStringProperty(this, "address");
-    private final long id;
+    public final long id;
     private static long count = 1000;
     
     /*

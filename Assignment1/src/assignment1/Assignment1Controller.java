@@ -105,33 +105,36 @@ public class Assignment1Controller implements Initializable {
         updateButton.disableProperty().bind(enableUpdateProperty.not());  
         
         enableClearProperty = new SimpleBooleanProperty(
-                this, "enableClear", true);
+                this, "enableClear", false);
         clearButton.disableProperty().bind(enableClearProperty.not());
        
         
         enableDeleteProperty = new SimpleBooleanProperty(
-                this, "enableDelete", true);
+                this, "enableDelete", false);
         deleteButton.disableProperty().bind(enableDeleteProperty.not());
         
         enableAddProperty = new SimpleBooleanProperty(
-                this, "enableAdd", false);
+                this, "enableAdd", true);
         addButton.disableProperty().bind(enableAddProperty.not());
         
         
         
         buildData();
         TreeItem<Employee> rootNode = new TreeItem<>(
-                new Employee("John","Doe"));
+                new Employee("John", "Doe"));
         buildTreeView(rootNode);
         employeeTreeView.setRoot(rootNode);
         employeeTreeView.getRoot().setExpanded(true);
         employeeTreeView.getSelectionModel().selectedItemProperty()
                 .addListener(treeSelectionListener);
+       
         
     }    
     
     private void buildData(){
         em.addEmployee(new Employee("Bill", "Clinton", "Employee"));
+        em.addEmployee(new Secretary("Jill","Yang", "123BIC"));
+        em.addEmployee(new Supervisor());
         em.addEmployee(new Employee("Jane", "Doe", "Secretary"));
         em.addEmployee(new Employee("Michael", "Jordan", "Supervisor"));
         em.addEmployee(new Employee());
@@ -194,7 +197,9 @@ public class Assignment1Controller implements Initializable {
     private void handleKeyAction(KeyEvent event) {
         if(changeOK){
             enableUpdateProperty.set(true);
-            
+            enableClearProperty.set(true);
+            enableDeleteProperty.set(true);
+            enableAddProperty.set(false);
         }
     }
     
@@ -219,50 +224,21 @@ public class Assignment1Controller implements Initializable {
             }
         }
     }
-    
+
+    @FXML
     private void updateButtonAction(ActionEvent event) {
-        enableUpdateProperty.set(false);
-        em.updateEmployee(theEmployee);
-        
     }
 
+    @FXML
     private void clearButtonAction(ActionEvent event) {
-        enableClearProperty.set(false);
-       clearForm();
     }
 
-
-    private void deleteButtonAction(ActionEvent event) {
-        enableDeleteProperty.set(true);
-        em.deleteEmployee(theEmployee);
-        clearForm();
-        
-    }
-
+    @FXML
     private void addButtonAction(ActionEvent event) {
-        enableAddProperty.set(true);
-        Employee e = new Employee(firstnameTextField.getText(), lastnameTextField.getText());
-        em.addEmployee(theEmployee);
     }
 
     @FXML
-    private void clearButtonAction(MouseEvent event) {
-        clearForm();
+    private void deleteButtonAction(ActionEvent event) {
     }
-
-    @FXML
-    private void deleteButtonAction(MouseEvent event) {
-       em.deleteEmployee(theEmployee);
-       clearForm();
-    }
-
-    @FXML
-    private void addButtonAction(MouseEvent event) {
-    }
-
-    @FXML
-    private void updateButtonAction(ContextMenuEvent event) {
-    }
-
     
 }
