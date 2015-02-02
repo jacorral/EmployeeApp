@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="629.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment1.Assignment1Controller">
+   <children>
+      <GridPane layoutX="74.0" layoutY="102.0" prefHeight="88.0" prefWidth="451.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="79.51078033447266" minWidth="10.0" prefWidth="79.51078033447266" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.52560424804688" minWidth="10.0" prefWidth="146.48921966552734" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="110.58355712890625" minWidth="10.0" prefWidth="110.58355712890625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.35040283203125" minWidth="10.0" prefWidth="115.41644287109375" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="45.160377502441406" minHeight="10.0" prefHeight="25.087600708007812" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="26.912399291992188" minHeight="6.839622497558594" prefHeight="26.912399291992188" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label layoutX="333.0" layoutY="110.0" prefHeight="16.0" prefWidth="48.0" text="Phone" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label layoutX="39.0" layoutY="58.0" prefHeight="16.0" prefWidth="70.0" text="First Name" />
+            <Label layoutX="334.0" layoutY="168.0" prefHeight="16.0" prefWidth="58.0" text="Address" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="firstnameTextField" layoutX="118.0" layoutY="53.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="1" />
+            <Label layoutX="56.0" layoutY="168.0" prefHeight="16.0" prefWidth="42.0" text="Salary" GridPane.rowIndex="2" />
+            <TextField fx:id="lastnameTextField" layoutX="401.0" layoutY="53.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="3" />
+            <TextField fx:id="titleTextField" layoutX="119.0" layoutY="105.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="salaryTextField" layoutX="119.0" layoutY="163.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label layoutX="333.0" layoutY="58.0" prefHeight="16.0" prefWidth="73.0" text="Last Name" textAlignment="JUSTIFY" GridPane.columnIndex="2" />
+            <Label layoutX="56.0" layoutY="110.0" prefHeight="16.0" prefWidth="30.0" text="Title" GridPane.rowIndex="1" />
+            <TextField fx:id="phoneTextField" layoutX="401.0" layoutY="105.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="addressTextField" layoutX="401.0" layoutY="163.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <HBox layoutX="310.0" layoutY="54.0" prefHeight="28.0" prefWidth="219.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="355.0" layoutY="28.0" prefHeight="28.0" prefWidth="102.0" text="Empolyee ID:" />
+            <TextField fx:id="idTextField" editable="false" layoutX="457.0" layoutY="28.0" prefHeight="26.0" prefWidth="114.0" />
+         </children>
+      </HBox>
+      <TreeView fx:id="employeeTreeView" layoutX="44.0" layoutY="315.0" prefHeight="291.0" prefWidth="503.0" />
+      <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onContextMenuRequested="#updateButtonAction" text="Update" />
+      <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#clearButtonAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
+      <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
+      <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onMouseClicked="#deleteButtonAction" text="Delete" />
+   </children>
+</AnchorPane>
