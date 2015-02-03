@@ -9,7 +9,10 @@ package assignment1;
 //
 import java.util.Objects;
 import javafx.beans.property.StringProperty;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -34,21 +37,32 @@ public class Employee implements Serializable {
     public final long id;
     private static long count = 1000;
     
-    /*
-    private String lastName;
-    private String phoneNumber;
-    private String address;
-    private String id;
-    private String title;
-    private int salary;
-    private java.util.Date dateCreated; */
-
-    // Constructors for Employee class
-    // The first constructor is the default constructor and it is called from the
-    // other constructors
+    private final StringBinding fullNameBinding = new StringBinding(){
+        {
+            super.bind(firstname, lastname, title);
+        }
+        @Override
+        protected String computeValue(){
+            StringBuilder sb = new StringBuilder();
+            if (!firstname.get().isEmpty()){
+                sb.append(firstname.get());
+            }
+            if (!lastname.get().isEmpty()){
+                sb.append(" ").append(lastname.get());
+            }
+            if (!title.get().isEmpty()){
+                sb.append(" ").append(title.get());
+            }
+            return sb.toString();
+        }
+    };
+    private final ReadOnlyStringWrapper fullname =
+            new ReadOnlyStringWrapper(this, "fullname");
+   
 
 
     public Employee() {
+        
         this.firstname.set("John");
         this.lastname.set("Doe");
         this.phone.set("630-555-1234");
@@ -56,6 +70,7 @@ public class Employee implements Serializable {
         this.title.set("Employee");
         this.address.set("123 Main St.");
         this.id = count++;
+        
         
         /*
         this.firstname = "John";
@@ -73,6 +88,7 @@ public class Employee implements Serializable {
         this.firstname.set(first);
         this.lastname.set(last);
         this.title.set("Employed");
+        
         //this.firstName = firstName;
         
     }
@@ -202,6 +218,13 @@ public class Employee implements Serializable {
         return salary.get();
     }
     
+    public final ReadOnlyStringProperty fullnameProperty(){
+        return fullname.getReadOnlyProperty();
+    }
+    public String getFullname(){
+        return  fullname.get();
+}
+    
     public StringProperty firstNameProperty(){
         return firstname;
     }
@@ -245,8 +268,18 @@ public class Employee implements Serializable {
         */
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-    public boolean equals(Object e) {
-        return id == ((Employee) e).getId();
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        return Objects.equals(this.id, other.id)
+                && Objects.equals(this.getFirstname(), other.getFirstname())
+                && Objects.equals(this.getLast(), other.getLast())
+                && Objects.equals(this.getTitle(), other.getTitle())
+                && Objects.equals(this.getPhone(), other.getPhone())
+                && Objects.equals(this.getSalary(), other.getSalary())
+                && Objects.equals(this.getAddress(), other.getAddress());
     }
 
     /**

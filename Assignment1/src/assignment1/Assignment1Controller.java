@@ -127,7 +127,7 @@ public class Assignment1Controller implements Initializable {
         employeeTreeView.getRoot().setExpanded(true);
         employeeTreeView.getSelectionModel().selectedItemProperty()
                 .addListener(treeSelectionListener);
-       
+      
         
     }    
     
@@ -199,7 +199,7 @@ public class Assignment1Controller implements Initializable {
             enableUpdateProperty.set(true);
             enableClearProperty.set(true);
             enableDeleteProperty.set(true);
-            enableAddProperty.set(false);
+            enableAddProperty.set(true);
         }
     }
     
@@ -227,18 +227,36 @@ public class Assignment1Controller implements Initializable {
 
     @FXML
     private void updateButtonAction(ActionEvent event) {
+        System.out.println("Update button pressed");
+        enableUpdateProperty.set(false);
+        em.updateEmployee(theEmployee);
     }
 
     @FXML
     private void clearButtonAction(ActionEvent event) {
+        System.out.println("Clear button pressed");
+        enableClearProperty.set(false);
+        clearForm();
+        
     }
 
     @FXML
     private void addButtonAction(ActionEvent event) {
+        idTextField.clear();
+        String first = firstnameTextField.getText();
+        String last = lastnameTextField.getText();
+        Employee e = new Employee(first,last);
+        System.out.println("Add button pressed");
+        enableClearProperty.set(false);
+        em.addEmployee(e);
     }
 
     @FXML
     private void deleteButtonAction(ActionEvent event) {
+        System.out.println("Delete button pressed");
+        enableDeleteProperty.set(false);
+        em.deleteEmployee(theEmployee);
+        
     }
     
 }

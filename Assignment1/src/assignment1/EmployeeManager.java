@@ -10,6 +10,7 @@ import javafx.collections.ObservableMap;
 import java.util.concurrent.ConcurrentHashMap;
 import javafx.collections.MapChangeListener;
 import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -52,15 +53,18 @@ public class EmployeeManager {
     }
     
     public synchronized void addEmployee(Employee emp){
+       System.out.println("Employee added");
         Employee employee = new Employee(emp);
         observableMap.put(employee.getId(), emp);
     }
     
     public void updateEmployee(Employee emp){
+        System.out.println("Employee updated");
         addEmployee(emp);
     }
     
     public synchronized void deleteEmployee(Employee emp){
+        System.out.println("Employee deleted");
         observableMap.remove(emp.getId());
     }
     
