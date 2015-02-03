@@ -14,18 +14,30 @@ import java.util.List;
 import java.util.ArrayList;
 
 
+
+
 /**
  *
  * @author angel
  */
 public class EmployeeManager {
+    
+    
+    
     public final ObservableMap<Long, Employee> observableMap =
             FXCollections.observableMap(new ConcurrentHashMap<Long, Employee>());
+    
     private static EmployeeManager instance = null;
+    
+    
+    
     
     protected EmployeeManager(){
         //Singleton class: Direct instantiation is not allowed
     }
+    
+    
+    
     public synchronized static EmployeeManager getInstance(){
         if (instance == null){
             instance = new EmployeeManager();
@@ -71,4 +83,6 @@ public class EmployeeManager {
         return copyList;
     }
     
+    
+   
 }

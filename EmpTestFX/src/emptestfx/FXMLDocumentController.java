@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,9 +51,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button deleteButton;
     @FXML
-    private ListView<?> emListView;
+    private ListView<Employee> emListView;
     
-    private final EmployeeManager em = EmployeeManager.getInstance();
+    private final ListManager em = ListManager.getInstance();
    
     //will keep track of changes
     private boolean changeOK = false;
@@ -90,8 +91,17 @@ public class FXMLDocumentController implements Initializable {
                 this, "enableAdd", true);
         addButton.disableProperty().bind(enableAddProperty.not());
         
-        // TODO
+        buildData();
+        buildListView();
+       
+        // emListView for the List View
+        
+    
+        
+        //emListView.getItems().addListener(employeeListListener);
     }    
+   // private final ChangeListener
+    
 
     @FXML
     private void handleKeyAction(KeyEvent event) {
@@ -123,4 +133,22 @@ public class FXMLDocumentController implements Initializable {
         em.addEmployee(new Employee());
     }
     
+    private void buildListView(){
+        em.addListener(listViewListener);
+       
+       
+        emListView.setItems(em.getObservableEmployees());
+    }
+    
+    private final ListChangeListener<Employee> listViewListener = 
+        (change) -> {
+            if(change.wasAdded(){
+                for(Employee em : change.getAddedSubList()){
+                   
+                }
+                
+            })
+                
+                
+            };
 }
