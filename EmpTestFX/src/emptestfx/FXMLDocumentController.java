@@ -50,8 +50,6 @@ public class FXMLDocumentController implements Initializable {
     private Button addButton;
     @FXML
     private Button deleteButton;
-    @FXML
-    private ListView<Employee> emListView;
     
     private final ListManager em = ListManager.getInstance();
    
@@ -92,7 +90,7 @@ public class FXMLDocumentController implements Initializable {
         addButton.disableProperty().bind(enableAddProperty.not());
         
         buildData();
-        buildListView();
+       
        
         // emListView for the List View
         
@@ -132,23 +130,5 @@ public class FXMLDocumentController implements Initializable {
         em.addEmployee(new Employee("Michael", "Jordan", "Supervisor"));
         em.addEmployee(new Employee());
     }
-    
-    private void buildListView(){
-        em.addListener(listViewListener);
-       
-       
-        emListView.setItems(em.getObservableEmployees());
-    }
-    
-    private final ListChangeListener<Employee> listViewListener = 
-        (change) -> {
-            if(change.wasAdded(){
-                for(Employee em : change.getAddedSubList()){
-                   
-                }
-                
-            })
-                
-                
-            };
+
 }

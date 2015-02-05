@@ -7,9 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="613.0" prefWidth="713.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="emptestfx.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="531.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="emptestfx.FXMLDocumentController">
    <children>
-      <GridPane layoutX="74.0" layoutY="102.0" prefHeight="88.0" prefWidth="451.0">
+      <GridPane layoutX="39.0" layoutY="50.0" prefHeight="91.0" prefWidth="451.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="79.51078033447266" minWidth="10.0" prefWidth="79.51078033447266" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.52560424804688" minWidth="10.0" prefWidth="146.48921966552734" />
@@ -36,16 +36,28 @@
             <TextField fx:id="addressTextField" layoutX="401.0" layoutY="163.0" onKeyReleased="#handleKeyAction" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <HBox layoutX="310.0" layoutY="54.0" prefHeight="28.0" prefWidth="219.0">
+      <HBox layoutX="268.0" layoutY="14.0" prefHeight="28.0" prefWidth="219.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="355.0" layoutY="28.0" prefHeight="28.0" prefWidth="102.0" text="Empolyee ID:" />
             <TextField fx:id="idTextField" editable="false" layoutX="457.0" layoutY="28.0" prefHeight="26.0" prefWidth="114.0" />
          </children>
       </HBox>
-      <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Update" />
-      <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onAction="#clearButtonAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
-      <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
-      <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
-      <ListView fx:id="emListView" layoutX="74.0" layoutY="307.0" prefHeight="283.0" prefWidth="451.0" />
+      <HBox layoutX="151.0" layoutY="236.0">
+         <children>
+            <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Update" />
+            <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onAction="#clearButtonAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
+            <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
+            <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
+         </children>
+      </HBox>
+      <TableView layoutX="59.0" layoutY="300.0" prefHeight="191.0" prefWidth="410.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID #" />
+          <TableColumn prefWidth="75.0" text="Firstname" />
+            <TableColumn prefWidth="75.0" text="Lastname" />
+            <TableColumn prefWidth="75.0" text="Title" />
+            <TableColumn prefWidth="109.0" text="Phone" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
