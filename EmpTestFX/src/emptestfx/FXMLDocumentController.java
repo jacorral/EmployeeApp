@@ -10,15 +10,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ListChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
+
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -51,7 +56,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button deleteButton;
     
-    private final ListManager em = ListManager.getInstance();
+    private final EmployeeManager em = EmployeeManager.getInstance();
+    
+    @FXML
+    private TableView<Employee> employeesTable = new TableView<>();
+    private  ObservableList<Employee> employeeList = FXCollections.observableArrayList();
    
     //will keep track of changes
     private boolean changeOK = false;
@@ -61,6 +70,16 @@ public class FXMLDocumentController implements Initializable {
     private BooleanProperty enableClearProperty;
     private BooleanProperty enableDeleteProperty;
     private BooleanProperty enableAddProperty;
+    @FXML
+    private TableColumn<?, ?> idTableColumn;
+    @FXML
+    private TableColumn<?, ?> firstnameTableColumn;
+    @FXML
+    private TableColumn<?, ?> lastnameTableColumn;
+    @FXML
+    private TableColumn<?, ?> titleTableColumn;
+    @FXML
+    private TableColumn<?, ?> phoneTableColumn; 
     
     
     private void handleButtonAction(ActionEvent event) {
@@ -90,8 +109,19 @@ public class FXMLDocumentController implements Initializable {
         addButton.disableProperty().bind(enableAddProperty.not());
         
         buildData();
+        
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+       firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+      // lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+       
+       employeeList = FXCollections.observableList(em.getAllEmployees());
+       System.out.println(employeeList);
        
        
+       employeesTable.getItems().addAll(employeeList);
+      // employeesTable.getColumns().addAll(firstnameTableColumn);
+
+        
         // emListView for the List View
         
     
@@ -125,10 +155,10 @@ public class FXMLDocumentController implements Initializable {
     private void buildData(){
         em.addEmployee(new Employee("Bill", "Clinton", "Employee"));
         em.addEmployee(new Secretary("Jill","Yang", "123BIC"));
-        em.addEmployee(new Supervisor());
+        //em.addEmployee(new Supervisor());
         em.addEmployee(new Employee("Jane", "Doe", "Secretary"));
         em.addEmployee(new Employee("Michael", "Jordan", "Supervisor"));
-        em.addEmployee(new Employee());
+       // em.addEmployee(new Employee());
     }
 
 }

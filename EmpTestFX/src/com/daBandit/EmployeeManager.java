@@ -7,6 +7,7 @@ package com.daBandit;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import javafx.collections.ObservableList;
 import java.util.concurrent.ConcurrentHashMap;
 import javafx.collections.MapChangeListener;
 import javafx.beans.InvalidationListener;
@@ -38,32 +39,32 @@ public class EmployeeManager {
     
     
     
-    public synchronized static EmployeeManager getInstance(){
+    public  static EmployeeManager getInstance(){
         if (instance == null){
             instance = new EmployeeManager();
         }
         return instance;
     }
     
-    public synchronized void addListener(
+    public  void addListener(
                     MapChangeListener<? super Long, ? super Employee> ml){
         observableMap.addListener(ml);
     }
     
-    public synchronized void removeListener(
+    public  void removeListener(
                     MapChangeListener<? super Long, ? super Employee> ml){
         observableMap.removeListener(ml);
     }
     
-    public synchronized void addListener(InvalidationListener il){
+    public  void addListener(InvalidationListener il){
         observableMap.addListener(il);
     }
     
-    public synchronized void removeListener(InvalidationListener il){
+    public  void removeListener(InvalidationListener il){
         observableMap.removeListener(il);
     }
     
-    public synchronized void addEmployee(Employee emp){
+    public  void addEmployee(Employee emp){
         Employee employee = new Employee(emp);
         observableMap.put(employee.getId(), emp);
     }
@@ -72,14 +73,15 @@ public class EmployeeManager {
         addEmployee(emp);
     }
     
-    public synchronized void deleteEmployee(Employee emp){
+    public  void deleteEmployee(Employee emp){
         observableMap.remove(emp.getId());
     }
     
-    public synchronized List<Employee> getAllEmployees(){
+    public  List<Employee> getAllEmployees(){
         List<Employee> copyList = new ArrayList<>();
         observableMap.values().stream().forEach((emp) ->
                 copyList.add(new Employee(emp)));
+         //ObservableList<Employee> aList = FXCollections.observableArrayList(copyList);
         return copyList;
     }
     
