@@ -51,14 +51,14 @@ public class ListManager {
     
     public void deleteEmployee(Employee emp){
         
-        observableList.remove(emp.getId());
+        observableList.remove(emp);
     }
    
     public void updateEmployee(Employee emp){
         Employee newEmp = new Employee(emp);
         
         observableList.add(newEmp);
-        observableList.remove(emp.getId());
+        observableList.remove(emp);
     }
     
     public ObservableList<Employee> getObservableEmployees(){

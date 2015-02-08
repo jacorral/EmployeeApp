@@ -56,7 +56,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button deleteButton;
     
-    private Employee theEmp = null;
+    private final Employee theEmp = null;
     
     private final ListManager em = ListManager.getInstance();
     
@@ -204,7 +204,10 @@ public class FXMLDocumentController implements Initializable {
         
           
        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+       
        firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+       
+       firstnameTableColumn.setEditable(true);
        lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
        titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
        phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
