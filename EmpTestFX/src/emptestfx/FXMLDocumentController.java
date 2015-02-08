@@ -10,8 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 
 
 import javafx.collections.ObservableList;
@@ -93,8 +93,6 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
-        
-          
         enableUpdateProperty = new SimpleBooleanProperty(
                 this, "enableUpdate", false);
         updateButton.disableProperty().bind(enableUpdateProperty.not());  
@@ -113,36 +111,9 @@ public class FXMLDocumentController implements Initializable {
         addButton.disableProperty().bind(enableAddProperty.not());
         
         buildData();
-        //TableColumn firstnameTableColumn = new TableColumn("Primer Name");
         
-       idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-       firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-       lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-       titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-       phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        buildTable();
        
-       employeeList = FXCollections.observableList(em.getAllEmployees());
-       System.out.println(employeeList);
-       
-       
-      // employeesTable.getItems().addAll(employeeList);
-       employees.setItems(employeeList);
-       
-       employees.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) ->{
-        if (employees.getSelectionModel().getSelectedItem() != null){
-            configureEditPanelBindings(newValue);
-        }
-        
-    });
-       
-      //employees.getColumns().addAll(idTableColumn, firstnameTableColumn);
-
-        
-        // emListView for the List View
-        
-    
-        
-        //emListView.getItems().addListener(employeeListListener);
     }    
    // private final ChangeListener
     
@@ -209,6 +180,43 @@ public class FXMLDocumentController implements Initializable {
         idTextField.setText("");
     }
     
+    private void buildTable(){
+        
+          
+       idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+       firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+       lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+       titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+       phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+       
+       em.addListener(employeeListListener);
+       employeeList = FXCollections.observableList(em.getAllEmployees());
+       //System.out.println(employeeList);
+       
+       
+      // employeesTable.getItems().addAll(employeeList);
+       employees.setItems(employeeList);
+       
+       employees.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) ->{
+        
+        if (employees.getSelectionModel().getSelectedItem() != null){
+            
+            System.out.println( employees.getSelectionModel().getSelectedItem().getFirstname());
+            
+            Employee emp = new Employee(newValue);
+            configureEditPanelBindings(emp);
+            
+        }
+        
+    });
+        
+    }
   
+    private final ListChangeListener<Employee> employeeListListener = 
+            (change) -> {
+                //if (change.wasAdded())
+                   
+                
+            };
 
 }
