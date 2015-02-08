@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -56,7 +57,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button deleteButton;
     
-    //private final EmployeeManager em = EmployeeManager.getInstance();
+    private Employee theEmp = null;
     
     private final ListManager em = ListManager.getInstance();
     
@@ -120,22 +121,39 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleKeyAction(KeyEvent event) {
+        if (changeOK){
+            enableUpdateProperty.set(true);
+            enableAddProperty.set(true);
+            enableClearProperty.set(false);
+            enableDeleteProperty.set(false);
+        }
     }
 
     @FXML
     private void updateButtonAction(ActionEvent event) {
+      
+            enableUpdateProperty.set(false);
+            em.updateEmployee(theEmp);
+        
     }
 
     @FXML
     private void clearButtonAction(ActionEvent event) {
+        enableClearProperty.set(false);
+        clearForm();
+        
     }
 
     @FXML
     private void addButtonAction(ActionEvent event) {
+        enableAddProperty.set(false);
+        em.addEmployee(theEmp);
     }
 
     @FXML
     private void deleteButtonAction(ActionEvent event) {
+        enableDeleteProperty.set(false);
+        em.deleteEmployee(theEmp);
     }
     
     
@@ -197,17 +215,24 @@ public class FXMLDocumentController implements Initializable {
       // employeesTable.getItems().addAll(employeeList);
        employees.setItems(employeeList);
        
+       
+       //Listener for table selection changes
+       
        employees.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) ->{
+        enableUpdateProperty.set(false);
+        enableClearProperty.set(true);
+        enableDeleteProperty.set(true);
+        changeOK = false;
         
         if (employees.getSelectionModel().getSelectedItem() != null){
             
             System.out.println( employees.getSelectionModel().getSelectedItem().getFirstname());
             
-            Employee emp = new Employee(newValue);
-            configureEditPanelBindings(emp);
+            Employee theEmp = new Employee(newValue);
+            configureEditPanelBindings(theEmp);
             
         }
-        
+        changeOK = true;
     });
         
     }
@@ -218,5 +243,6 @@ public class FXMLDocumentController implements Initializable {
                    
                 
             };
+
 
 }
