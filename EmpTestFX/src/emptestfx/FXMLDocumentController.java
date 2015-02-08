@@ -10,8 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 
 
 import javafx.collections.ObservableList;
@@ -119,6 +119,7 @@ public class FXMLDocumentController implements Initializable {
        firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
        lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
        titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+       phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
        
        employeeList = FXCollections.observableList(em.getAllEmployees());
        System.out.println(employeeList);
@@ -126,6 +127,13 @@ public class FXMLDocumentController implements Initializable {
        
       // employeesTable.getItems().addAll(employeeList);
        employees.setItems(employeeList);
+       
+       employees.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) ->{
+        if (employees.getSelectionModel().getSelectedItem() != null){
+            configureEditPanelBindings(newValue);
+        }
+        
+    });
        
       //employees.getColumns().addAll(idTableColumn, firstnameTableColumn);
 
@@ -163,10 +171,44 @@ public class FXMLDocumentController implements Initializable {
     private void buildData(){
         em.addEmployee(new Employee("Bill", "Clinton", "Employee"));
         em.addEmployee(new Secretary("Jill","Yang", "123BIC"));
-        //em.addEmployee(new Supervisor());
+        em.addEmployee(new Supervisor());
         em.addEmployee(new Employee("Jane", "Doe", "Secretary"));
         em.addEmployee(new Employee("Michael", "Jordan", "Supervisor"));
-       // em.addEmployee(new Employee());
+        em.addEmployee(new Employee());
     }
+    
+    
+    
+    private void configureEditPanelBindings(Employee e){
+        firstnameTextField.textProperty()
+                .bindBidirectional(e.firstNameProperty());
+        lastnameTextField.textProperty()
+                .bindBidirectional(e.lastNameProperty());
+        titleTextField.textProperty()
+                .bindBidirectional(e.titleProperty());
+        phoneTextField.textProperty()
+                .bindBidirectional(e.phoneProperty());
+        salaryTextField.textProperty()
+                .bindBidirectional(e.salaryProperty());
+        addressTextField.textProperty()
+                .bindBidirectional(e.addressProperty());
+        idTextField.setText(Long.toString(e.getId()));
+        
+    }
+    
+    
+    
+    
+    private void clearForm(){
+        firstnameTextField.setText("");
+        lastnameTextField.setText("");
+        titleTextField.setText("");
+        phoneTextField.setText("");
+        salaryTextField.setText("");
+        addressTextField.setText("");
+        idTextField.setText("");
+    }
+    
+  
 
 }
