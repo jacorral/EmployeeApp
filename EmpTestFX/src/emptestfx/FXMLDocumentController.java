@@ -165,13 +165,15 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void deleteButtonAction(ActionEvent event) {
-        enableDeleteProperty.set(false);
+        //enableDeleteProperty.set(false);
 
         // System.out.println(theEmp.getFirstname());
         System.out.println(employees.getSelectionModel().getSelectedItem().getFirstname());
         Employee thisEmp = employees.getSelectionModel().getSelectedItem();
         em.deleteEmployee(thisEmp);
         clearForm();
+        enableDeleteProperty.set(false);
+        enableClearProperty.set(false);
     }
 
     private void buildData() {
