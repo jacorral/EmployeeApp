@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +30,7 @@ import javafx.scene.input.KeyEvent;
  * @author angel
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     private Label label;
     @FXML
     private TextField firstnameTextField;
@@ -55,17 +54,17 @@ public class FXMLDocumentController implements Initializable {
     private Button addButton;
     @FXML
     private Button deleteButton;
-    
+
     private final Employee theEmp = null;
-    
+
     private final ListManager em = ListManager.getInstance();
-    
+
     //private TableView<Employee> employees = new TableView<>();
-    private  ObservableList<Employee> employeeList = FXCollections.observableArrayList();
-   
+    private ObservableList<Employee> employeeList = FXCollections.observableArrayList();
+
     //will keep track of changes
     private boolean changeOK = false;
-    
+
     //Properties used for the buttons
     private BooleanProperty enableUpdateProperty;
     private BooleanProperty enableClearProperty;
@@ -78,49 +77,46 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<?, ?> titleTableColumn;
     @FXML
-    private TableColumn<?, ?> phoneTableColumn; 
+    private TableColumn<?, ?> phoneTableColumn;
     @FXML
     private TableView<Employee> employees;
     @FXML
     private TableColumn<?, ?> lastnameTableColumn;
-    
-    
+
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+
         enableUpdateProperty = new SimpleBooleanProperty(
                 this, "enableUpdate", false);
-        updateButton.disableProperty().bind(enableUpdateProperty.not());  
-        
+        updateButton.disableProperty().bind(enableUpdateProperty.not());
+
         enableClearProperty = new SimpleBooleanProperty(
                 this, "enableClear", false);
         clearButton.disableProperty().bind(enableClearProperty.not());
-       
-        
+
         enableDeleteProperty = new SimpleBooleanProperty(
                 this, "enableDelete", false);
         deleteButton.disableProperty().bind(enableDeleteProperty.not());
-        
+
         enableAddProperty = new SimpleBooleanProperty(
                 this, "enableAdd", true);
         addButton.disableProperty().bind(enableAddProperty.not());
-        
+
         buildData();
-        
+
         buildTable();
-       
-    }    
-   // private final ChangeListener
-    
+
+    }
+    // private final ChangeListener
 
     @FXML
     private void handleKeyAction(KeyEvent event) {
-        if (changeOK){
+        if (changeOK) {
             enableUpdateProperty.set(true);
             enableAddProperty.set(true);
             enableClearProperty.set(false);
@@ -130,47 +126,47 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void updateButtonAction(ActionEvent event) {
-      
-            enableUpdateProperty.set(false);
-            em.updateEmployee(theEmp);
-            
-        
+
+        enableUpdateProperty.set(false);
+        em.updateEmployee(theEmp);
+
     }
 
     @FXML
     private void clearButtonAction(ActionEvent event) {
         enableClearProperty.set(false);
         clearForm();
-        
+
     }
 
     @FXML
     private void addButtonAction(ActionEvent event) {
         enableAddProperty.set(false);
-        Employee newEmp = new Employee(firstnameTextField.getText(),lastnameTextField.getText());
+        Employee newEmp = new Employee(firstnameTextField.getText(), lastnameTextField.getText());
         em.updateEmployee(newEmp);
     }
 
     @FXML
     private void deleteButtonAction(ActionEvent event) {
         enableDeleteProperty.set(false);
-        em.deleteEmployee(theEmp);
+
+        // System.out.println(theEmp.getFirstname());
+        System.out.println(employees.getSelectionModel().getSelectedItem().getFirstname());
+        Employee thisEmp = employees.getSelectionModel().getSelectedItem();
+        em.deleteEmployee(thisEmp);
         clearForm();
     }
-    
-    
-    private void buildData(){
+
+    private void buildData() {
         em.addEmployee(new Employee("Bill", "Clinton", "Employee"));
-        em.addEmployee(new Secretary("Jill","Yang", "123BIC"));
+        em.addEmployee(new Secretary("Jill", "Yang", "123BIC"));
         em.addEmployee(new Supervisor());
         em.addEmployee(new Employee("Jane", "Doe", "Secretary"));
         em.addEmployee(new Employee("Michael", "Jordan", "Supervisor"));
         em.addEmployee(new Employee());
     }
-    
-    
-    
-    private void configureEditPanelBindings(Employee e){
+
+    private void configureEditPanelBindings(Employee e) {
         firstnameTextField.textProperty()
                 .bindBidirectional(e.firstNameProperty());
         lastnameTextField.textProperty()
@@ -184,13 +180,10 @@ public class FXMLDocumentController implements Initializable {
         addressTextField.textProperty()
                 .bindBidirectional(e.addressProperty());
         idTextField.setText(Long.toString(e.getId()));
-        
+
     }
-    
-    
-    
-    
-    private void clearForm(){
+
+    private void clearForm() {
         firstnameTextField.setText("");
         lastnameTextField.setText("");
         titleTextField.setText("");
@@ -199,79 +192,76 @@ public class FXMLDocumentController implements Initializable {
         addressTextField.setText("");
         idTextField.setText("");
     }
-    
-    private void buildTable(){
-        
-          
-       idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-       
-       firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-       
-       firstnameTableColumn.setEditable(true);
-       lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-       titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-       phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-       
-       em.addListener(employeeListListener);
-       
-       
-       
-       employeeList = FXCollections.observableList(em.getAllEmployees());
-       //System.out.println(employeeList);
-       
-       
-      // employeesTable.getItems().addAll(employeeList);
-       employees.setItems(employeeList);
-       
-       
-       //Listener for table selection changes
-       
-       employees.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) ->{
-        enableUpdateProperty.set(false);
-        enableClearProperty.set(true);
-        enableDeleteProperty.set(true);
-        changeOK = false;
-        
-        if (employees.getSelectionModel().getSelectedItem() != null){
-            
-            System.out.println( employees.getSelectionModel().getSelectedItem().getFirstname());
-            
-            Employee theEmp = new Employee(newValue);
-            configureEditPanelBindings(theEmp);
-            
-        }
-        changeOK = true;
-    });
-        
-    }
-  
-    private final ListChangeListener<Employee> employeeListListener = 
-            (onChange) -> {
-                while (onChange.next()){
-                System.out.println("The list was changed....I think!");
-                if (onChange.wasReplaced()){
-                    System.out.println("A change was replaced");
-                    
-                }else if(onChange.wasAdded()){
-                    System.out.println("An employee was added");
-                    int aindl = onChange.getFrom();
-                    int aindh = onChange.getTo();
-                    employeeList.addAll(onChange.getAddedSubList());
-                   
-                    
-                }else if(onChange.wasRemoved()){
-                    System.out.println("An employee was removed");
-                    int rindl = onChange.getFrom();
-                    int rindh = onChange.getTo();
-                    employeeList.remove(rindl, rindh);
-                    
-                }
-                
-                 
-                
-                }
-                
-            };
 
+    private void buildTable() {
+
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+
+        firstnameTableColumn.setEditable(true);
+        lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        em.addListener(employeeListListener);
+
+        employeeList = FXCollections.observableList(em.getAllEmployees());
+       //System.out.println(employeeList);
+
+        // employeesTable.getItems().addAll(employeeList);
+        employees.setItems(employeeList);
+
+        //Listener for table selection changes
+        employees.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            enableUpdateProperty.set(false);
+            enableClearProperty.set(true);
+            enableDeleteProperty.set(true);
+            changeOK = false;
+
+            if (employees.getSelectionModel().getSelectedItem() != null) {
+
+                System.out.println(employees.getSelectionModel().getSelectedItem().getFirstname());
+
+                Employee theEmp = new Employee(newValue);
+                configureEditPanelBindings(theEmp);
+
+            }
+            changeOK = true;
+        });
+
+    }
+    //Observer that keeps track of employees getting removed, changed and added to the list
+
+    private final ListChangeListener<Employee> employeeListListener
+            = (onChange) -> {
+                while (onChange.next()) {
+                    System.out.println("The list was changed....I think!");
+                    if (onChange.wasReplaced()) {
+                        System.out.println("A change was replaced");
+
+                    } else {
+
+                        if (onChange.wasAdded()) {
+                            System.out.println("An employee was added");
+                            int aindl = onChange.getFrom();
+                            int aindh = onChange.getTo();
+                           // employeeList.addAll(aindh-1, onChange.getAddedSubList());
+
+                            employeeList.addAll(onChange.getAddedSubList());
+                            
+
+                        } else {//if (onChange.wasRemoved()&& onChange.wasAdded()) {
+                            System.out.println("An employee was removed");
+                            int rindl = onChange.getFrom();
+                            //employeeList.remove(rindl);
+                            
+
+                        }
+                    }
+
+                }
+
+            };
 
 }
