@@ -50,11 +50,11 @@
             <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
          </children>
       </HBox>
-      <TableView fx:id="employees" layoutX="59.0" layoutY="300.0" prefHeight="191.0" prefWidth="410.0">
+      <TableView fx:id="employees" editable="true" layoutX="59.0" layoutY="300.0" prefHeight="191.0" prefWidth="410.0">
         <columns>
           <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID #" />
           <TableColumn fx:id="firstnameTableColumn" prefWidth="75.0" text="First Name" />
-            <TableColumn fx:id="lastnameTableColume" prefWidth="75.0" text="Last Name" />
+            <TableColumn fx:id="lastnameTableColumn" prefWidth="75.0" text="Last Name" />
             <TableColumn fx:id="titleTableColumn" prefWidth="75.0" text="Title" />
             <TableColumn fx:id="phoneTableColumn" prefWidth="109.0" text="Phone" />
         </columns>

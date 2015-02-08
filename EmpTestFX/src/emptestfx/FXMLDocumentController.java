@@ -56,10 +56,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button deleteButton;
     
-    private final EmployeeManager em = EmployeeManager.getInstance();
+    //private final EmployeeManager em = EmployeeManager.getInstance();
     
-    @FXML
-    private TableView<Employee> employeesTable = new TableView<>();
+    private final ListManager em = ListManager.getInstance();
+    
+    //private TableView<Employee> employees = new TableView<>();
     private  ObservableList<Employee> employeeList = FXCollections.observableArrayList();
    
     //will keep track of changes
@@ -75,11 +76,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<?, ?> firstnameTableColumn;
     @FXML
-    private TableColumn<?, ?> lastnameTableColumn;
-    @FXML
     private TableColumn<?, ?> titleTableColumn;
     @FXML
     private TableColumn<?, ?> phoneTableColumn; 
+    @FXML
+    private TableView<Employee> employees;
+    @FXML
+    private TableColumn<?, ?> lastnameTableColumn;
     
     
     private void handleButtonAction(ActionEvent event) {
@@ -90,6 +93,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
+        
           
         enableUpdateProperty = new SimpleBooleanProperty(
                 this, "enableUpdate", false);
@@ -109,17 +113,21 @@ public class FXMLDocumentController implements Initializable {
         addButton.disableProperty().bind(enableAddProperty.not());
         
         buildData();
+        //TableColumn firstnameTableColumn = new TableColumn("Primer Name");
         
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+       idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
        firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-      // lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+       lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+       titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
        
        employeeList = FXCollections.observableList(em.getAllEmployees());
        System.out.println(employeeList);
        
        
-       employeesTable.getItems().addAll(employeeList);
-      // employeesTable.getColumns().addAll(firstnameTableColumn);
+      // employeesTable.getItems().addAll(employeeList);
+       employees.setItems(employeeList);
+       
+      //employees.getColumns().addAll(idTableColumn, firstnameTableColumn);
 
         
         // emListView for the List View

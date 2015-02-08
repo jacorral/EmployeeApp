@@ -61,7 +61,7 @@ public class ListManager {
         return observableList;
     }
     
-    public ArrayList<Employee> getAllEmployee(){
+    public ArrayList<Employee> getAllEmployees(){
         ArrayList<Employee> copyList = new ArrayList<>();
         observableList.forEach((p) -> 
         copyList.add(p));
