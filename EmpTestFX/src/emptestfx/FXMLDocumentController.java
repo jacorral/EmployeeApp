@@ -135,6 +135,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void clearButtonAction(ActionEvent event) {
         enableClearProperty.set(false);
+        enableDeleteProperty.set(false);
         clearForm();
 
     }
@@ -143,7 +144,7 @@ public class FXMLDocumentController implements Initializable {
     private void addButtonAction(ActionEvent event) {
         enableAddProperty.set(false);
         Employee newEmp = new Employee(firstnameTextField.getText(), lastnameTextField.getText());
-        em.updateEmployee(newEmp);
+        em.addEmployee(newEmp);
     }
 
     @FXML
@@ -240,27 +241,26 @@ public class FXMLDocumentController implements Initializable {
                     if (onChange.wasReplaced()) {
                         System.out.println("A change was replaced");
 
-                    } else {
+                    } else if (onChange.wasRemoved()) {
+                            
+                            int rindl = onChange.getFrom();
+                            employeeList.remove(rindl);
+                            System.out.println("An employee was removed at index: " + rindl);
 
-                        if (onChange.wasAdded()) {
-                            System.out.println("An employee was added");
+                        }else if (onChange.wasAdded()) {
+                            
                             int aindl = onChange.getFrom();
                             int aindh = onChange.getTo();
-                           // employeeList.addAll(aindh-1, onChange.getAddedSubList());
+                            //employeeList.addAll(0, onChange.getAddedSubList());
 
                             employeeList.addAll(onChange.getAddedSubList());
                             
+                            System.out.println("An employee was added at index: " + aindl);
 
-                        } else {//if (onChange.wasRemoved()&& onChange.wasAdded()) {
-                            System.out.println("An employee was removed");
-                            int rindl = onChange.getFrom();
-                            //employeeList.remove(rindl);
-                            
-
-                        }
+                        } 
                     }
 
-                }
+                
 
             };
 
