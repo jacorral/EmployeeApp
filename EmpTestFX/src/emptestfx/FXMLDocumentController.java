@@ -121,8 +121,8 @@ public class FXMLDocumentController implements Initializable {
                 this, "enableAdd", true);
         addButton.disableProperty().bind(enableAddProperty.not());
 
-       // buildData();
-        read();
+        buildData();
+        //read();
 
         buildTable();
 
@@ -216,8 +216,7 @@ public class FXMLDocumentController implements Initializable {
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-
-        firstnameTableColumn.setEditable(true);
+       
         lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
@@ -280,6 +279,7 @@ public class FXMLDocumentController implements Initializable {
             };
 
     public void save() {
+        ArrayList<Employee> list = new ArrayList(em.getAllEmployees());
 
         File file = new File("data.dat");
 
@@ -289,14 +289,15 @@ public class FXMLDocumentController implements Initializable {
                 file.createNewFile();
             } else {
                 // Code for saving data
-                ArrayList<Employee> list = new ArrayList(em.getAllEmployees());
+
                 ObjectOutputStream oos = new ObjectOutputStream(fop);
-                for (int i = 0; i < list.size(); i++) {
-                    oos.writeObject(list.get(i));
-                    System.out.println("Employee being serialized: " + list.get(i).getFirstname());
-                    oos.flush();
-                }
+
+                oos.writeObject(list);
+                // System.out.println("Employee being serialized: " + list.get(i).getFirstname());
+                oos.flush();
+
                 oos.close();
+                fop.close();
 
             }
 
@@ -307,23 +308,30 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void read() {
-        Employee desEmp = null;
+        ArrayList<Employee> inList = new ArrayList<>();
+
         try {
             FileInputStream inputFileStream = new FileInputStream("data.dat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputFileStream);
-            desEmp = (Employee)objectInputStream.readObject();
+            //System.out.println("Deserial data: " + objectInputStream.readObject().getClass());
+            inList =  (ArrayList)objectInputStream.readObject();
             //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
             //em.addEmployee(desEmp);
+
             objectInputStream.close();
             inputFileStream.close();
-          
-            
-        }catch (IOException i) {
+
+        } catch (IOException i) {
             i.printStackTrace();
-        }catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-       //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
+        
+        for(int i=0; i<inList.size(); i++){
+            em.addEmployee(inList.get(i));
+        }
+
+        //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
     }
-    
+
 }
