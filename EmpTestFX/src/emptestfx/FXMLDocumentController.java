@@ -24,7 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -134,6 +133,7 @@ public class FXMLDocumentController implements Initializable {
       
             enableUpdateProperty.set(false);
             em.updateEmployee(theEmp);
+            
         
     }
 
@@ -147,13 +147,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void addButtonAction(ActionEvent event) {
         enableAddProperty.set(false);
-        em.addEmployee(theEmp);
+        Employee newEmp = new Employee(firstnameTextField.getText(),lastnameTextField.getText());
+        em.updateEmployee(newEmp);
     }
 
     @FXML
     private void deleteButtonAction(ActionEvent event) {
         enableDeleteProperty.set(false);
         em.deleteEmployee(theEmp);
+        clearForm();
     }
     
     
@@ -208,6 +210,9 @@ public class FXMLDocumentController implements Initializable {
        phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
        
        em.addListener(employeeListListener);
+       
+       
+       
        employeeList = FXCollections.observableList(em.getAllEmployees());
        //System.out.println(employeeList);
        
@@ -238,9 +243,30 @@ public class FXMLDocumentController implements Initializable {
     }
   
     private final ListChangeListener<Employee> employeeListListener = 
-            (change) -> {
-                //if (change.wasAdded())
+            (onChange) -> {
+                while (onChange.next()){
+                System.out.println("The list was changed....I think!");
+                if (onChange.wasReplaced()){
+                    System.out.println("A change was replaced");
+                    
+                }else if(onChange.wasAdded()){
+                    System.out.println("An employee was added");
+                    int aindl = onChange.getFrom();
+                    int aindh = onChange.getTo();
+                    employeeList.addAll(onChange.getAddedSubList());
                    
+                    
+                }else if(onChange.wasRemoved()){
+                    System.out.println("An employee was removed");
+                    int rindl = onChange.getFrom();
+                    int rindh = onChange.getTo();
+                    employeeList.remove(rindl, rindh);
+                    
+                }
+                
+                 
+                
+                }
                 
             };
 

@@ -15,9 +15,9 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Secretary extends Employee {
     private final StringProperty office =
-            new SimpleStringProperty(this,"office");
+            new SimpleStringProperty(this,"office", "");
     private final StringProperty status =
-            new SimpleStringProperty(this,"status");
+            new SimpleStringProperty(this,"status", "");
 
 
     /*

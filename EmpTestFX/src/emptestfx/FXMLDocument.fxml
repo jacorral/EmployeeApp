@@ -44,15 +44,15 @@
       </HBox>
       <HBox layoutX="151.0" layoutY="236.0">
          <children>
-            <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Update" />
-            <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onAction="#clearButtonAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
+            <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" onKeyPressed="#handleKeyAction" text="Update" />
+            <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onAction="#clearButtonAction" onKeyPressed="#handleKeyAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
             <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
             <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />
          </children>
       </HBox>
       <TableView fx:id="employees" editable="true" layoutX="59.0" layoutY="300.0" prefHeight="191.0" prefWidth="410.0">
         <columns>
-          <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID #" />
+          <TableColumn fx:id="idTableColumn" editable="false" prefWidth="75.0" text="ID #" />
           <TableColumn fx:id="firstnameTableColumn" prefWidth="75.0" text="First Name" />
             <TableColumn fx:id="lastnameTableColumn" prefWidth="75.0" text="Last Name" />
             <TableColumn fx:id="titleTableColumn" prefWidth="75.0" text="Title" />

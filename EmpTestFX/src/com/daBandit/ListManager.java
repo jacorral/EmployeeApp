@@ -50,11 +50,15 @@ public class ListManager {
     }
     
     public void deleteEmployee(Employee emp){
-        observableList.remove(emp);
+        
+        observableList.remove(emp.getId());
     }
    
     public void updateEmployee(Employee emp){
-        observableList.add(emp);
+        Employee newEmp = new Employee(emp);
+        
+        observableList.add(newEmp);
+        observableList.remove(emp.getId());
     }
     
     public ObservableList<Employee> getObservableEmployees(){
