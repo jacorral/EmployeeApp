@@ -6,7 +6,15 @@
 package emptestfx;
 
 import com.daBandit.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -82,6 +90,12 @@ public class FXMLDocumentController implements Initializable {
     private TableView<Employee> employees;
     @FXML
     private TableColumn<?, ?> lastnameTableColumn;
+    @FXML
+    private TextField deptTextField;
+    @FXML
+    private TextField secTextField;
+    @FXML
+    private TextField statusTextField;
 
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -107,7 +121,8 @@ public class FXMLDocumentController implements Initializable {
                 this, "enableAdd", true);
         addButton.disableProperty().bind(enableAddProperty.not());
 
-        buildData();
+       // buildData();
+        read();
 
         buildTable();
 
@@ -128,7 +143,8 @@ public class FXMLDocumentController implements Initializable {
     private void updateButtonAction(ActionEvent event) {
 
         enableUpdateProperty.set(false);
-        em.updateEmployee(theEmp);
+        //em.updateEmployee(theEmp);
+        save();
 
     }
 
@@ -160,8 +176,9 @@ public class FXMLDocumentController implements Initializable {
 
     private void buildData() {
         em.addEmployee(new Employee("Bill", "Clinton", "Employee"));
-        em.addEmployee(new Secretary("Jill", "Yang", "123BIC"));
-        em.addEmployee(new Supervisor());
+        Secretary jane = new Secretary("Jill", "Yang", "123BIC");
+        em.addEmployee(jane);
+        em.addEmployee(new Supervisor("Bugs", "Bunny", "Engineering", "100", jane));
         em.addEmployee(new Employee("Jane", "Doe", "Secretary"));
         em.addEmployee(new Employee("Michael", "Jordan", "Supervisor"));
         em.addEmployee(new Employee());
@@ -242,26 +259,71 @@ public class FXMLDocumentController implements Initializable {
                         System.out.println("A change was replaced");
 
                     } else if (onChange.wasRemoved()) {
-                            
-                            int rindl = onChange.getFrom();
-                            employeeList.remove(rindl);
-                            System.out.println("An employee was removed at index: " + rindl);
 
-                        }else if (onChange.wasAdded()) {
-                            
-                            int aindl = onChange.getFrom();
-                            int aindh = onChange.getTo();
-                            //employeeList.addAll(0, onChange.getAddedSubList());
+                        int rindl = onChange.getFrom();
+                        employeeList.remove(rindl);
+                        System.out.println("An employee was removed at index: " + rindl);
 
-                            employeeList.addAll(onChange.getAddedSubList());
-                            
-                            System.out.println("An employee was added at index: " + aindl);
+                    } else if (onChange.wasAdded()) {
 
-                        } 
+                        int aindl = onChange.getFrom();
+                        int aindh = onChange.getTo();
+                        //employeeList.addAll(0, onChange.getAddedSubList());
+
+                        employeeList.addAll(onChange.getAddedSubList());
+
+                        System.out.println("An employee was added at index: " + aindl);
+
                     }
-
-                
+                }
 
             };
 
+    public void save() {
+
+        File file = new File("data.dat");
+
+        try (FileOutputStream fop = new FileOutputStream(file)) {
+            //create file if it doesn't exist
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                // Code for saving data
+                ArrayList<Employee> list = new ArrayList(em.getAllEmployees());
+                ObjectOutputStream oos = new ObjectOutputStream(fop);
+                for (int i = 0; i < list.size(); i++) {
+                    oos.writeObject(list.get(i));
+                    System.out.println("Employee being serialized: " + list.get(i).getFirstname());
+                    oos.flush();
+                }
+                oos.close();
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void read() {
+        Employee desEmp = null;
+        try {
+            FileInputStream inputFileStream = new FileInputStream("data.dat");
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputFileStream);
+            desEmp = (Employee)objectInputStream.readObject();
+            //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
+            //em.addEmployee(desEmp);
+            objectInputStream.close();
+            inputFileStream.close();
+          
+            
+        }catch (IOException i) {
+            i.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+       //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
+    }
+    
 }
