@@ -10,7 +10,6 @@ package com.daBandit;
 import java.util.Objects;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -19,17 +18,17 @@ import java.io.Serializable;
 @SuppressWarnings("EqualsAndHashcode")
 public class Employee implements Serializable {
     
-    public final StringProperty firstname = 
+    public final transient StringProperty firstname = 
             new SimpleStringProperty(this, "firstname", "");
-    public final StringProperty lastname =
+    public final transient StringProperty lastname =
             new SimpleStringProperty(this, "lastname", "");
-    public final StringProperty phone =
+    public final transient StringProperty phone =
             new SimpleStringProperty(this, "phone", "");
-    public final StringProperty title =
+    public final transient StringProperty title =
             new SimpleStringProperty(this, "title", "");
-    public final StringProperty salary =
+    public final transient StringProperty salary =
             new SimpleStringProperty(this, "salary");
-    public final StringProperty address =
+    public final transient StringProperty address =
             new SimpleStringProperty(this, "address");
     public final long id;
     private static long count = 1000;

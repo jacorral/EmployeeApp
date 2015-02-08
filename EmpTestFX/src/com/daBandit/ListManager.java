@@ -50,15 +50,16 @@ public class ListManager {
     }
     
     public void deleteEmployee(Employee emp){
-        
-        observableList.remove(emp);
+        int index = observableList.indexOf(emp);        
+        observableList.remove(index);
     }
    
     public void updateEmployee(Employee emp){
+        System.out.println("Update employee implementation");
         Employee newEmp = new Employee(emp);
+        this.deleteEmployee(emp);
+        this.addEmployee(newEmp);
         
-        observableList.add(newEmp);
-        observableList.remove(emp);
     }
     
     public ObservableList<Employee> getObservableEmployees(){

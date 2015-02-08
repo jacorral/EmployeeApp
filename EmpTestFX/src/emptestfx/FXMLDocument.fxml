@@ -59,5 +59,11 @@
             <TableColumn fx:id="phoneTableColumn" prefWidth="109.0" text="Phone" />
         </columns>
       </TableView>
+      <TextField fx:id="deptTextField" layoutX="118.0" layoutY="141.0" prefHeight="26.0" prefWidth="146.0" />
+      <TextField fx:id="secTextField" layoutX="374.0" layoutY="141.0" prefHeight="26.0" prefWidth="116.0" />
+      <TextField fx:id="statusTextField" layoutX="118.0" layoutY="173.0" prefHeight="26.0" prefWidth="146.0" />
+      <Label layoutX="78.0" layoutY="146.0" text="Dept" />
+      <Label layoutX="333.0" layoutY="146.0" text="Sec" />
+      <Label layoutX="74.0" layoutY="178.0" text="Status" />
    </children>
 </AnchorPane>

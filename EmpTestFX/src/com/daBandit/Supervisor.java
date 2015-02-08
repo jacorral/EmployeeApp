@@ -104,7 +104,16 @@ public class Supervisor extends Employee {
     public void setSecretary(Secretary secretary) {
         this.secretary = secretary;
     }
+    
+    public final StringProperty departmentProperty(){
+        return department;
+    }
+    
+    public final StringProperty numberOfEmployeesProperty(){
+        return numberofemployees;
+    }
 
+    
 
     /*
      * Implementations of the toString() method (Override)

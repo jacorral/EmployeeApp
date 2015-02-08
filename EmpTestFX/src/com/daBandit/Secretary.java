@@ -14,9 +14,9 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Jose Corral
  */
 public class Secretary extends Employee {
-    private final StringProperty office =
+    public final StringProperty office =
             new SimpleStringProperty(this,"office", "");
-    private final StringProperty status =
+    public final StringProperty status =
             new SimpleStringProperty(this,"status", "");
 
 
@@ -103,6 +103,13 @@ public class Secretary extends Employee {
         this.status.set(status);
     }
 
+    public final StringProperty officeProperty(){
+        return office;
+    }
+    
+    public final StringProperty statusProperty(){
+        return status;
+    }
 
     /*
      * Implementation of the toString() method (Override)
