@@ -219,7 +219,7 @@ public class FXMLDocumentController implements Initializable {
 
         firstnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
        
-        lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        lastnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("last"));
         titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         phoneTableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
@@ -329,10 +329,9 @@ public class FXMLDocumentController implements Initializable {
             e.printStackTrace();
         }
         
-        for(int i=0; i<inList.size(); i++){
-            em.addEmployee(inList.get(i));
+        for (Employee inList1 : inList) {
+            em.addEmployee(inList1);
         }
-
         //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
     }
 
