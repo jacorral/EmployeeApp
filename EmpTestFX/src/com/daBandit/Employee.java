@@ -20,16 +20,22 @@ public class Employee implements Serializable {
     
     public final transient StringProperty firstname = 
             new SimpleStringProperty(this, "firstname", "");
+    
     public final transient StringProperty lastname =
-            new SimpleStringProperty(this, "lastname", "");
+            new SimpleStringProperty(this, "last", "");
+    
     public final transient StringProperty phone =
             new SimpleStringProperty(this, "phone", "");
+    
     public final transient StringProperty title =
             new SimpleStringProperty(this, "title", "");
+    
     public final transient StringProperty salary =
-            new SimpleStringProperty(this, "salary");
+            new SimpleStringProperty(this, "salary", "");
+    
     public final transient StringProperty address =
-            new SimpleStringProperty(this, "address");
+            new SimpleStringProperty(this, "address", "");
+    
     public final long id;
     private static long count = 1000;
     
@@ -83,6 +89,8 @@ public class Employee implements Serializable {
         this.title.set(title);
     }
     public Employee(Employee emp){
+      
+        
         this.firstname.set(emp.getFirstname());
         this.lastname.set(emp.getLast());
         this.title.set(emp.getTitle());

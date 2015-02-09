@@ -13,10 +13,10 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * @author Jose Corral
  */
-public class Secretary extends Employee {
-    public final StringProperty office =
+public class Secretary extends Employee implements Serializable {
+    public final transient StringProperty office =
             new SimpleStringProperty(this,"office", "");
-    public final StringProperty status =
+    public final transient StringProperty status =
             new SimpleStringProperty(this,"status", "");
 
 

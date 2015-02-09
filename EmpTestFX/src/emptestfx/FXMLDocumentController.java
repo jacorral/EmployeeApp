@@ -293,10 +293,14 @@ public class FXMLDocumentController implements Initializable {
                 // Code for saving data
 
                 ObjectOutputStream oos = new ObjectOutputStream(fop);
-
-                oos.writeObject(list);
+                
+                oos.writeInt(list.size());
+                
+                for (int i = 0; i < list.size(); i++){
+                    oos.writeObject(list.get(i));
+                }
+               
                 // System.out.println("Employee being serialized: " + list.get(i).getFirstname());
-                oos.flush();
 
                 oos.close();
                 fop.close();
@@ -316,9 +320,22 @@ public class FXMLDocumentController implements Initializable {
             FileInputStream inputFileStream = new FileInputStream("data.dat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputFileStream);
             //System.out.println("Deserial data: " + objectInputStream.readObject().getClass());
-            inList =  (ArrayList)objectInputStream.readObject();
+            int listSize = objectInputStream.readInt();
+            
+            for (int i=0; i < listSize; i++){
+                //em.addEmployee((Employee)objectInputStream.readObject());
+                inList.add((Employee) objectInputStream.readObject());
+                
+                
+            }
+            
             //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
-            //em.addEmployee(desEmp);
+            for (int i = 0; i < inList.size(); i++){
+                //em.addEmployee(inList.get(i));
+               // System.out.println(inList.get(i).getFirstname());
+                System.out.println("index #: " + i + " "+ (inList.get(i) instanceof Employee));
+            }
+            //em.addEmployee(inList.get(3));
 
             objectInputStream.close();
             inputFileStream.close();
@@ -329,9 +346,7 @@ public class FXMLDocumentController implements Initializable {
             e.printStackTrace();
         }
         
-        for (Employee inList1 : inList) {
-            em.addEmployee(inList1);
-        }
+        
         //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
     }
 

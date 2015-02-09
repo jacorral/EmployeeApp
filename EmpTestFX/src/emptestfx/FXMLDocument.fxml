@@ -44,7 +44,7 @@
       </HBox>
       <HBox layoutX="151.0" layoutY="236.0">
          <children>
-            <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" onKeyPressed="#handleKeyAction" text="Update" />
+            <Button fx:id="updateButton" layoutX="74.0" layoutY="245.0" mnemonicParsing="false" onAction="#updateButtonAction" onKeyPressed="#handleKeyAction" text="Save" />
             <Button fx:id="clearButton" layoutX="151.0" layoutY="245.0" mnemonicParsing="false" onAction="#clearButtonAction" onKeyPressed="#handleKeyAction" prefHeight="26.0" prefWidth="62.0" text="Clear" />
             <Button fx:id="addButton" layoutX="229.0" layoutY="245.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="26.0" prefWidth="58.0" text="Add" />
             <Button fx:id="deleteButton" layoutX="310.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteButtonAction" text="Delete" />

@@ -15,10 +15,10 @@ import javafx.beans.property.SimpleObjectProperty ;
 /**
  * @author Jose Corral
  */
-public class Supervisor extends Employee {
-    private final StringProperty department =
+public class Supervisor extends Employee implements Serializable {
+    private final transient StringProperty department =
             new SimpleStringProperty(this, "department");
-    private final StringProperty numberofemployees = 
+    private final transient StringProperty numberofemployees = 
             new SimpleStringProperty(this, "numberofemployes");
     private Secretary secretary;
     //private final ObjectProperty<Secretary> secretary = new SimpleObjectProperty<Secretary>(this, "secretary");
