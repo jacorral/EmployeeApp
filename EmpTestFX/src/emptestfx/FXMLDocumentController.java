@@ -144,7 +144,7 @@ public class FXMLDocumentController implements Initializable {
 
         enableUpdateProperty.set(false);
         //em.updateEmployee(theEmp);
-        save();
+        search();
 
     }
 
@@ -349,5 +349,24 @@ public class FXMLDocumentController implements Initializable {
         
         //System.out.println("Employee being de=serialized: " + desEmp.getFirstname());
     }
+    
+    public void search(){
+        
+        String searchString = firstnameTextField.getText();
+        clearForm();
+        System.out.println("searching for: " + searchString);
+        ArrayList<Employee> list = em.getAllEmployees();
+        System.out.println("name: " + list.get(0).firstname.get());
+        for (int i = 0; i < list.size(); i++){
+            if(searchString.equalsIgnoreCase( list.get(i).firstname.get())){
+                
+                configureEditPanelBindings(list.get(i));
+                
+                System.out.println("search: "+ searchString +"  found: " + list.get(i).getFirstname());
+            }
+            
+        }
+    }
+    
 
 }
