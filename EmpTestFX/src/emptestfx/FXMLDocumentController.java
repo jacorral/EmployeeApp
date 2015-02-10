@@ -90,12 +90,6 @@ public class FXMLDocumentController implements Initializable {
     private TableView<Employee> employees;
     @FXML
     private TableColumn<?, ?> lastnameTableColumn;
-    @FXML
-    private TextField deptTextField;
-    @FXML
-    private TextField secTextField;
-    @FXML
-    private TextField statusTextField;
 
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
